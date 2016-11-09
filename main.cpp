@@ -27,17 +27,17 @@ I2C i2c(D14, D15);
 
 /** Connect to one NuBrick slave via NuBrick master object
  */
-#define NUBRICK_CONNECT(MASTER, NAME)                               \
-    do {                                                            \
-        printf("\n\n");                                             \
-        if (! MASTER.connect()) {                                   \
-            printf("Connect to NuBrick:\t\t"NAME" failed\n\n");     \
-            return;                                                 \
-        }                                                           \
-        else {                                                      \
-            printf("Connect to NuBrick:\t\t"NAME" OK\n\n");         \
-            MASTER.print_device_desc();                             \
-        }                                                           \
+#define NUBRICK_CONNECT(MASTER, NAME)                                   \
+    do {                                                                \
+        printf("\r\n\r\n");                                             \
+        if (! MASTER.connect()) {                                       \
+            printf("Connect to NuBrick:\t\t"NAME" failed\r\n\r\n");     \
+            return;                                                     \
+        }                                                               \
+        else {                                                          \
+            printf("Connect to NuBrick:\t\t"NAME" OK\r\n\r\n");         \
+            MASTER.print_device_desc();                                 \
+        }                                                               \
     } while (0);
 
 /** Define NuBrick master objects to communicate with NuBrick slave devices
@@ -131,11 +131,11 @@ void test_nubrick_ahrs(void) {
     
     master_ahrs.pull_feature_report();    
     // Prescaled vibration alarm threshold
-    printf("Prescaled vibration alarm threshold\t\t%d\n", master_ahrs["feature.pre_vibration_AT"].get_value());
+    printf("Prescaled vibration alarm threshold\t\t%d\r\n", master_ahrs["feature.pre_vibration_AT"].get_value());
     
     master_ahrs.pull_input_report();
     // Detected vibration
-    printf("Detected vibration\t\t\t\t%d\n", master_ahrs["input.vibration"].get_value());
+    printf("Detected vibration\t\t\t\t%d\r\n", master_ahrs["input.vibration"].get_value());
 }
 
 void test_nubrick_sonar(void) {
@@ -144,11 +144,11 @@ void test_nubrick_sonar(void) {
     
     master_sonar.pull_feature_report();
     // Distance alarm threshold in cm
-    printf("Distance alarm threshold\t\t%d\n", master_sonar["feature.distance_AT"].get_value());
+    printf("Distance alarm threshold\t\t%d\r\n", master_sonar["feature.distance_AT"].get_value());
     
     master_sonar.pull_input_report();
     // Detected distance in cm
-    printf("Detected distance\t\t\t%d\n", master_sonar["input.distance"].get_value());
+    printf("Detected distance\t\t\t%d\r\n", master_sonar["input.distance"].get_value());
 }
 
 void test_nubrick_temp(void) {
@@ -157,15 +157,15 @@ void test_nubrick_temp(void) {
     
     master_temp.pull_feature_report();
     // Temp. alarm threshold in Celsius
-    printf("Temp. alarm threshold\t\t%d\n", master_temp["feature.temp_AT"].get_value());
+    printf("Temp. alarm threshold\t\t%d\r\n", master_temp["feature.temp_AT"].get_value());
     // Hum. alarm threshold in %
-    printf("Hum. alarm threshold\t\t%d\n", master_temp["feature.hum_AT"].get_value());
+    printf("Hum. alarm threshold\t\t%d\r\n", master_temp["feature.hum_AT"].get_value());
     
     master_temp.pull_input_report();
     // Detected temp in Celsius
-    printf("Detected temp.\t\t\t%d\n", master_temp["input.temp"].get_value());
+    printf("Detected temp.\t\t\t%d\r\n", master_temp["input.temp"].get_value());
     // Detected hum. in %
-    printf("Detected hum.\t\t\t%d\n", master_temp["input.hum"].get_value());
+    printf("Detected hum.\t\t\t%d\r\n", master_temp["input.hum"].get_value());
 }
 
 void test_nubrick_gas(void) {
@@ -174,11 +174,11 @@ void test_nubrick_gas(void) {
     
     master_gas.pull_feature_report();
     // Gas alarm threshold in %.
-    printf("Gas alarm threshold\t\t%d\n", master_gas["feature.gas_AT"].get_value());
+    printf("Gas alarm threshold\t\t%d\r\n", master_gas["feature.gas_AT"].get_value());
     
     master_gas.pull_input_report();
     // Detected gas in %. 80% above for normal.
-    printf("Gas\t\t\t\t%d\n", master_gas["input.gas"].get_value());
+    printf("Gas\t\t\t\t%d\r\n", master_gas["input.gas"].get_value());
 }
 
 void test_nubrick_ir(void) {
@@ -186,13 +186,13 @@ void test_nubrick_ir(void) {
     NUBRICK_CONNECT(master_ir, "IR");
     
     master_ir.pull_feature_report();
-    printf("Number of learned data\t\t%d\n", master_ir["feature.num_learned_data"].get_value());
-    printf("Using data type\t\t\t%d\n", master_ir["feature.using_data_type"].get_value());
-    printf("Index of original data to send\t%d\n", master_ir["feature.index_orig_data_to_send"].get_value());
-    printf("Index of learned data to send\t%d\n", master_ir["feature.index_learned_data_to_send"].get_value());
+    printf("Number of learned data\t\t%d\r\n", master_ir["feature.num_learned_data"].get_value());
+    printf("Using data type\t\t\t%d\r\n", master_ir["feature.using_data_type"].get_value());
+    printf("Index of original data to send\t%d\r\n", master_ir["feature.index_orig_data_to_send"].get_value());
+    printf("Index of learned data to send\t%d\r\n", master_ir["feature.index_learned_data_to_send"].get_value());
     
     master_ir.pull_input_report();
-    printf("Has received data flag\t\t%d\n", master_ir["input.received_data_flag"].get_value());
+    printf("Has received data flag\t\t%d\r\n", master_ir["input.received_data_flag"].get_value());
 }
 
 void test_nubrick_keys(void) {
@@ -205,10 +205,10 @@ void test_nubrick_keys(void) {
     unsigned i = 0;
     for (i = 0; i < 8; i ++) {
         if (key_state & (1 << i)) {
-            printf("KEY%d PRESSED\n", i + 1);
+            printf("KEY%d PRESSED\r\n", i + 1);
         }
         else {
-           printf("KEY%d RELEASED\n", i + 1);
+           printf("KEY%d RELEASED\r\n", i + 1);
         }
     }
 }
