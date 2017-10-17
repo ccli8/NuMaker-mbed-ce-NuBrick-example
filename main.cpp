@@ -17,15 +17,7 @@
 #include "mbed.h"
 #include "nubrick.h"
  
-#if defined(TARGET_NUMAKER_PFM_NUC472)
 I2C i2c(D14, D15);
-
-#elif defined(TARGET_NUMAKER_PFM_M453)
-I2C i2c(D14, D15);
-
-#elif defined(TARGET_NUMAKER_PFM_M487)
-I2C i2c(D14, D15);   // in M487 D14 is SDA, D15 is SCL
-#endif
 
 /** Connect to one NuBrick slave via NuBrick master object
  */
