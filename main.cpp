@@ -25,11 +25,11 @@ I2C i2c(D14, D15);
     do {                                                                \
         printf("\r\n\r\n");                                             \
         if (! MASTER.connect()) {                                       \
-            printf("Connect to NuBrick:\t\t"NAME" failed\r\n\r\n");     \
+            printf("Connect to NuBrick:\t\t\"NAME\" failed\r\n\r\n");     \
             return;                                                     \
         }                                                               \
         else {                                                          \
-            printf("Connect to NuBrick:\t\t"NAME" OK\r\n\r\n");         \
+            printf("Connect to NuBrick:\t\t\"NAME\" OK\r\n\r\n");         \
             MASTER.print_device_desc();                                 \
         }                                                               \
     } while (0);
@@ -57,7 +57,9 @@ void test_nubrick_ir(void);
 void test_nubrick_keys(void);
 
 int main() {
-    
+#ifdef MBED_MAJOR_VERSION
+    printf("Mbed OS version %d.%d.%d\r\n\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
+#endif
     // Test all supported NuBrick slave devices
     test_nubrick_buzzer();
     test_nubrick_led();
@@ -87,7 +89,11 @@ void test_nubrick_buzzer(void) {
     master_buzzer.push_feature_report();
     
     // The NuBrick I2C device may not respond in time. Add delay here.
+#if MBED_MAJOR_VERSION >= 6
+    ThisThread::sleep_for(50);
+#else
     wait_ms(50);
+#endif
     
     // Start sounding the buzzer
     master_buzzer["output.start_flag"].set_value(1);
@@ -111,7 +117,14 @@ void test_nubrick_led(void) {
     master_led.push_feature_report();
     
     // The NuBrick I2C device may not respond in time. Add delay here.
+#if MBED_MAJOR_VERSION >= 6
+    ThisThread::sleep_for(50);
+#else
     wait_ms(50);
+#endif
+
+
+
     
     // Start blinking the LED
     master_led["output.start_flag"].set_value(1);
