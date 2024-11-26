@@ -25,11 +25,11 @@ I2C i2c(D14, D15);
     do {                                                                \
         printf("\r\n\r\n");                                             \
         if (! MASTER.connect()) {                                       \
-            printf("Connect to NuBrick:\t\t\"NAME\" failed\r\n\r\n");     \
+            printf("Connect to NuBrick:\t\t\"" NAME "\" failed\r\n\r\n");     \
             return;                                                     \
         }                                                               \
         else {                                                          \
-            printf("Connect to NuBrick:\t\t\"NAME\" OK\r\n\r\n");         \
+            printf("Connect to NuBrick:\t\t\"" NAME "\" OK\r\n\r\n");         \
             MASTER.print_device_desc();                                 \
         }                                                               \
     } while (0);
