@@ -1,0 +1,6 @@
+[submodule "mbed-os"]
+	path = mbed-os
+	url = https://github.com/mbed-ce/mbed-os
+[submodule "NuMaker-mbed-ce-NuBrick"]
+	path = NuMaker-mbed-ce-NuBrick
+	url = https://github.com/mbed-nuvoton/NuMaker-mbed-ce-NuBrick
